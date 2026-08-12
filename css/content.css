@@ -1,0 +1,728 @@
+/* Tic for Twitch - Production-Ready Content Script Styles applied to twitch.tv */
+
+/* ==========================================================================
+   0. Custom Global Skin & Pill Buttons
+   ========================================================================== */
+:root, .tw-root {
+  --color-background-base: #0e0e12 !important;
+  --color-background-body: #0e0e12 !important;
+  --color-background-alt: #0e0e12 !important;
+  --color-background-alt-2: #0e0e12 !important;
+  --tic-stats-accent: #bf94ff; /* Native purple fallback */
+  --tic-stats-accent-light: #d6bfff; /* 1 shade lighter than fallback */
+  
+  /* Override default live variables globally */
+  --color-background-live: var(--tic-stats-accent-light) !important;
+  --color-text-live: var(--tic-stats-accent-light) !important;
+  --color-fill-live: var(--tic-stats-accent-light) !important;
+  --color-border-live: var(--tic-stats-accent-light) !important;
+  
+  /* Aggressively override Twitch's core purple variables globally */
+  --color-background-button-brand: var(--tic-stats-accent) !important;
+  --color-background-button-brand-hover: var(--tic-stats-accent) !important;
+  --color-background-button-brand-active: var(--tic-stats-accent) !important;
+  --color-border-brand: var(--tic-stats-accent) !important;
+  --color-fill-brand: var(--tic-stats-accent) !important;
+  --color-text-brand: var(--tic-stats-accent) !important;
+  --color-text-link: var(--tic-stats-accent) !important;
+  --color-text-link-hover: var(--tic-stats-accent) !important;
+  --color-text-link-active: var(--tic-stats-accent) !important;
+  --color-text-button-brand: #fff !important;
+}
+
+/* Force custom skin on Twitch Sliders & Progress Bars */
+.tw-progress-bar__fill,
+.tw-range__progress,
+.tw-slider__fill,
+.tw-toggle__button--checked,
+[data-a-target="player-seekbar"] div[style*="background-color: rgb(145, 70, 255)"],
+[data-a-target="player-volume-slider"] div[style*="background-color: rgb(145, 70, 255)"],
+[data-a-target="player-seekbar"] div[style*="background-color: #9146FF"],
+[data-a-target="player-volume-slider"] div[style*="background-color: #9146FF"],
+.video-player__seek-bar-progress,
+.ScProgressBarFill-sc-1v3bhec-0,
+[class*="ProgressBarFill"],
+[class*="SliderProgress"] {
+  background-color: var(--tic-stats-accent) !important;
+}
+
+/* Force override Live Indicators explicitly */
+[data-a-target="live-indicator"],
+.tw-channel-status-text-indicator,
+[aria-label*="Live"],
+[class*="IndicatorDot"],
+[class*="LiveBadge"],
+.live-time-indicator,
+.stream-type-indicator--live,
+div[style*="background-color: rgb(235, 4, 0)"],
+div[style*="background-color: #eb0400"],
+svg [fill="#ff8280"] {
+  background-color: var(--tic-stats-accent-light) !important;
+  color: #fff !important; /* Keep text inside badges white */
+}
+svg [fill="#ff8280"] {
+  fill: var(--tic-stats-accent-light) !important;
+  background-color: transparent !important;
+}
+
+/* Force override Live Text (like viewer count) */
+.tw-c-text-live,
+[class*="text-live"],
+span[style*="color: #ff8280"],
+div[style*="color: #ff8280"],
+p[style*="color: #ff8280"],
+[data-a-target="player-info-viewer-count"],
+[data-a-target="player-info-viewer-count"] *,
+[data-a-target="animated-channel-viewers-count"],
+[data-a-target="animated-channel-viewers-count"] * {
+  color: var(--tic-stats-accent-light) !important;
+  fill: var(--tic-stats-accent-light) !important;
+}
+
+/* Force override Stream Info Viewer Count (Under Video) */
+#live-channel-stream-information svg path[d^="M6 8a6 6"],
+#live-channel-stream-information .tw-c-text-live,
+#live-channel-stream-information [style*="color: #ff8280"],
+#live-channel-stream-information [style*="color: #eb0400"],
+#live-channel-stream-information [style*="color: rgb(235, 4, 0)"] {
+  fill: var(--tic-stats-accent-light) !important;
+  color: var(--tic-stats-accent-light) !important;
+}
+
+.tw-channel-status-text-indicator p,
+.tw-channel-status-text-indicator span {
+  color: #fff !important;
+}
+
+/* Explicit Sidebar Background Lock */
+[data-a-target="side-nav-bar"],
+[data-a-target="side-nav-card"],
+.side-nav-card,
+.side-bar-contents {
+  background-color: #0e0e12 !important;
+}
+
+[data-a-target="side-nav-bar"] {
+  border-right: 2.5px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Fix weird green blocks behind sidebar text */
+[data-a-target="side-nav-bar"] h5,
+[data-a-target="side-nav-bar"] h2,
+.side-nav-section,
+.side-nav-header,
+[data-a-target="side-nav-show-more-button"],
+.side-nav-show-more-toggle__button {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   0.5. Explicit Background Overrides (Protect against variable bleed)
+   ========================================================================== */
+.chat-room,
+.chat-room__container,
+[data-a-target="chat-room"],
+.chat-scrollable-area__message-container,
+[data-a-page-loaded-name="ChannelChat"] {
+  background-color: #0e0e12 !important;
+}
+
+.chat-line__message {
+  background-color: transparent !important;
+}
+
+/* Ensure highlight messages in chat don't bleed out */
+.chat-line__message--highlighted {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Dynamically brighten ALL chat usernames (1 shade lighter) without JS */
+.chat-author__display-name,
+.chat-line__username {
+  filter: brightness(1.25) saturate(0.9) !important;
+}
+
+/* Fix explicit Link Hovers on top nav */
+a.tw-link:hover,
+.navigation-link:hover,
+.top-nav__menu a:hover,
+[data-a-target="top-nav-container"] a:hover,
+[class*="ScCoreLink"]:hover {
+  color: var(--tic-stats-accent-light) !important;
+}
+
+.tic-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  background-color: var(--color-background-button-secondary-default, rgba(255, 255, 255, 0.15));
+  color: var(--color-text-button-secondary, #fff);
+  border: none;
+  height: 30px;
+  margin: 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tic-pill-btn:hover {
+  background-color: var(--color-background-button-secondary-hover, rgba(255, 255, 255, 0.2));
+}
+
+/* ==========================================================================
+   1. Turn Lights Off Mode (#tic-lights-off-backdrop & UI Dimming)
+   ========================================================================== */
+body.tic-lights-off-active {
+  background-color: #050505 !important;
+}
+
+body.tic-lights-off-active .top-nav,
+body.tic-lights-off-active [data-a-target="top-nav-container"],
+body.tic-lights-off-active [data-a-target="side-nav-bar"],
+body.tic-lights-off-active .channel-root__info {
+  opacity: 0.15 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease-in-out !important;
+}
+
+body.tic-lights-off-active .top-nav:hover,
+body.tic-lights-off-active [data-a-target="top-nav-container"]:hover,
+body.tic-lights-off-active [data-a-target="side-nav-bar"]:hover,
+body.tic-lights-off-active .channel-root__info:hover {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* ==========================================================================
+   2. Bitrate & Real-Time Latency Monitor HUD (.tic-bitrate-inline-display)
+   ========================================================================== */
+.tic-bitrate-inline-display {
+  display: inline-flex;
+  align-items: center;
+  color: #efeff1;
+  font-family: Inter, Roobert, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0 8px;
+  user-select: none;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   3. Custom Skin & Hex Color Swapper (`customSkin`)
+   Note: Dynamic Hex overrides injected via #tic-custom-skin-dynamic-styles in JS
+   ========================================================================== */
+body.tic-custom-skin-active [data-a-target="top-nav-container"],
+body.tic-custom-skin-active .top-nav,
+body.tic-custom-skin-active nav[class*="top-nav"] {
+  background: rgba(18, 18, 24, 0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+body.tic-custom-skin-active .stream-chat,
+body.tic-custom-skin-active [data-test-selector="chat-room-component-layout"],
+body.tic-custom-skin-active [data-a-target="chat-room"],
+body.tic-custom-skin-active aside[class*="chat-room"] {
+  border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(14, 14, 18, 0.85) !important;
+}
+
+
+
+/* Native-styled PiP/Popout button positioned inside right control group next to Settings */
+.tic-pip-btn-native {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0 2px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--color-fill-current, inherit);
+  cursor: pointer;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 50 !important;
+}
+
+.tic-pip-btn-native:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.tic-pip-btn-native svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   5. Floating Mini-Player Window (`videoPopout` - Twitch Mini Player Style)
+   ========================================================================== */
+#tx-mini-window {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 440px;
+  height: 310px;
+  z-index: 2147483647;
+  background: #000000;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 0 2px rgba(145, 71, 255, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 360px;
+  min-height: 240px;
+  transition: box-shadow 0.3s ease;
+}
+
+#tx-mini-window:hover {
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 0 2px rgba(145, 71, 255, 0.5);
+}
+
+#tx-mini-header {
+  height: 32px;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(18, 18, 24, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font: 600 12px 'Inter', system-ui, sans-serif;
+  cursor: move;
+  user-select: none;
+}
+
+#tx-mini-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: linear-gradient(90deg, #9147ff, #ff75e6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+#tx-mini-close {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+#tx-mini-close:hover {
+  background: #ff6b6b;
+}
+
+#tx-mini-body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 200px;
+  background: #000000;
+}
+
+#tx-mini-window-player {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #000000;
+}
+
+#tx-mini-resize {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 18px;
+  height: 18px;
+  z-index: 4;
+  cursor: nwse-resize;
+  background: linear-gradient(135deg, transparent 0 45%, rgba(255,255,255,0.5) 45% 55%, transparent 55% 62%, rgba(255,255,255,0.35) 62% 72%, transparent 72%);
+}
+
+
+
+
+
+/* ==========================================================================
+   9. Native Button Color Overrides (Follow / Subscribe)
+   ========================================================================== */
+body button[data-a-target="subscribe-button"],
+body button[data-a-target="follow-button"],
+body button[data-test-selector="follow-button"],
+body button[data-a-target="subscribe-button"]:hover,
+body button[data-a-target="follow-button"]:hover,
+body button[data-test-selector="follow-button"]:hover {
+  background-color: #29292e !important;
+  border-color: #29292e !important;
+  color: #efeff1 !important;
+}
+
+/* ==========================================================================
+   10. Native Clip Downloader Button
+   ========================================================================== */
+.tic-clip-dl-btn-native {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0 2px;
+  background: var(--color-background-button-brand, #9147ff);
+  border: none;
+  border-radius: 4px;
+  color: var(--color-text-button-primary, #ffffff);
+  cursor: pointer;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.tic-clip-dl-btn-native:hover {
+  opacity: 0.9;
+}
+
+.tic-clip-dl-btn-native:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================================
+   6. Hide Video Extensions (`hideExtensions`)
+   ========================================================================== */
+body.tic-hide-extensions-active [data-a-target="video-extension-layer"],
+body.tic-hide-extensions-active .extension-view,
+body.tic-hide-extensions-active .extension-container,
+body.tic-hide-extensions-active .tw-extension-container,
+body.tic-hide-extensions-active [class*="extension-overlay"],
+body.tic-hide-extensions-active iframe[src*="ext.twitch.tv"],
+body.tic-hide-extensions-active #js-player-extension-root,
+body.tic-hide-extensions-active .extension-overlay__iframe,
+body.tic-hide-extensions-active .player-extension-overlay-container {
+  display: none !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+/* ==========================================================================
+   7. Compact Chat Density Mode (`compactChat` - 7TV / BTTV / GreasyFork Style)
+   AND Comprehensive Clutter Filtering (Subs, Badge Rewards, Top Gifters, Trains)
+   ========================================================================== */
+body.tic-compact-chat-active .stream-chat .chat-line__message,
+body.tic-compact-chat-active .stream-chat [data-test-selector="chat-line-message"],
+body.tic-compact-chat-active .stream-chat [data-a-target="chat-line-message"],
+body.tic-compact-chat-active .stream-chat div[class*="chat-line__message"],
+body.tic-compact-chat-active .stream-chat div[class*="Layout-sc-1xcs6mc-0"][class*="chat-line"] {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: 1.25 !important;
+  min-height: 20px !important;
+}
+
+/* Hide user avatars */
+body.tic-compact-chat-active .stream-chat .chat-line__message--avatar,
+body.tic-compact-chat-active .stream-chat [data-test-selector="chat-message-avatar"],
+body.tic-compact-chat-active .stream-chat div[class*="avatar"] {
+  display: none !important;
+  width: 0 !important;
+  margin: 0 !important;
+}
+
+/* Scale down chat badges */
+body.tic-compact-chat-active .stream-chat [data-a-target="chat-badge"],
+body.tic-compact-chat-active .stream-chat [data-test-selector="chat-badge"],
+body.tic-compact-chat-active .stream-chat img[class*="chat-badge"] {
+  transform: scale(0.8) !important;
+  margin-right: 2px !important;
+  vertical-align: middle !important;
+}
+
+/* Compact timestamps */
+body.tic-compact-chat-active .stream-chat .chat-line__timestamp,
+body.tic-compact-chat-active .stream-chat [data-test-selector="chat-timestamp"] {
+  font-size: 11px !important;
+  opacity: 0.65 !important;
+  margin-right: 4px !important;
+}
+
+/* HIDE SYSTEM NOTICES, LEADERBOARDS, TOP GIFTERS, HYPE/TREASURE TRAINS IN COMPACT CHAT */
+body.tic-compact-chat-active .stream-chat [data-a-target="chat-line-system"],
+body.tic-compact-chat-active .stream-chat .chat-line__system,
+body.tic-compact-chat-active .stream-chat [data-a-target="chat-line-notice"],
+body.tic-compact-chat-active .stream-chat [data-test-selector="user-notice-line"],
+body.tic-compact-chat-active .stream-chat .user-notice-line,
+body.tic-compact-chat-active .stream-chat div[class*="user-notice"],
+body.tic-compact-chat-active .stream-chat [data-test-selector="chat-leaderboard"],
+body.tic-compact-chat-active .stream-chat div[class*="leaderboard"],
+body.tic-compact-chat-active .stream-chat .chat-room__leaderboard,
+body.tic-compact-chat-active .stream-chat [data-test-selector="hype-train-progress-bar"],
+body.tic-compact-chat-active .stream-chat [data-test-selector="hype-train-events"],
+body.tic-compact-chat-active .stream-chat div[class*="hype-train"],
+body.tic-compact-chat-active .stream-chat div[class*="treasure-train"],
+body.tic-compact-chat-active .stream-chat [data-test-selector="pinned-cheer"],
+body.tic-compact-chat-active .stream-chat div[class*="pinned-chat-message"],
+body.tic-compact-chat-active .stream-chat .tic-hidden-chat-clutter {
+  display: none !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Actual density compacting */
+body.tic-compact-chat-active .stream-chat .chat-line__message,
+body.tic-compact-chat-active .stream-chat [data-test-selector="chat-line-message"] {
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+  line-height: 1.2 !important;
+  font-size: 13px !important;
+}
+
+/* ==========================================================================
+   8. Sidebar UI Tweaks (Always Active)
+   ========================================================================== */
+[data-a-target="side-nav-bar"] .tw-image-avatar,
+[data-a-target="side-nav-bar"] figure,
+[data-a-target="side-nav-bar"] .side-nav-card__avatar {
+  transform: scale(0.85) !important;
+  transform-origin: center center !important;
+}
+/* Grid Downloader */
+.tic-grid-dl-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  color: white;
+  z-index: 10;
+  padding: 4px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+.tic-dl-wrapper:hover .tic-grid-dl-btn,
+[data-a-target='preview-card-image-link']:hover .tic-grid-dl-btn {
+  opacity: 1;
+}
+.tic-grid-dl-btn:hover {
+  background: #9146ff;
+}
+.tic-grid-dl-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+/* ==========================================================================
+   7. Twitch Stats Panel (Native Badges)
+   ========================================================================== */
+#tic-stats-panel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-family: var(--font-base);
+}
+
+.tic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background-color: var(--color-background-button-secondary-default, rgba(255, 255, 255, 0.15));
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-base);
+}
+
+.tic-badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tic-stats-accent);
+}
+
+/* ==========================================================================
+   11. UI Compaction (Hardcoded 5% Reduction)
+   ========================================================================== */
+/* Compact the inner content instead of layout columns to prevent black bars */
+.side-nav-card,
+.side-nav-header,
+.chat-line__message,
+.chat-input-container,
+.channel-leaderboard,
+.pinned-chat__pinned-by,
+.chat-line__message--pinned,
+.user-notice-line {
+  zoom: 0.95;
+}
+
+/* ==========================================================================
+   12. Hardened UI Conditioning & Overrides
+   ========================================================================== */
+/* Nuke Twitch's default white outline on chat inputs */
+.chat-input,
+.chat-wysiwyg-input__editor,
+[data-a-target="chat-input"],
+.chat-input__textarea,
+.chat-wysiwyg-input__box,
+.chat-wysiwyg-input-box,
+input[type="search"],
+.tw-input,
+[data-a-target="tray-search-input"] input,
+[data-a-target="tw-input"] {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.chat-input:focus,
+.chat-input:focus-within,
+.chat-input:active,
+.chat-wysiwyg-input__editor:focus,
+.chat-wysiwyg-input__editor:focus-within,
+.chat-wysiwyg-input__editor:active,
+.chat-wysiwyg-input__box:focus-within,
+.chat-wysiwyg-input__box:focus,
+.chat-wysiwyg-input__box:active,
+.chat-wysiwyg-input__box--focus,
+.chat-wysiwyg-input-box:focus-within,
+.chat-wysiwyg-input-box:focus,
+.chat-wysiwyg-input-box:active,
+.chat-wysiwyg-input-box--focus,
+input[type="search"]:focus,
+input[type="search"]:focus-within,
+input[type="search"]:active,
+.tw-input:focus,
+.tw-input:focus-within,
+.tw-input:active,
+[data-a-target="tw-input"]:focus {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* ==========================================================================
+   X. Dynamic Custom Skin Engine (Ultra-lightweight variables)
+   ========================================================================== */
+:root.tic-custom-skin-active,
+.tic-custom-skin-active .tw-root,
+.tic-custom-skin-active {
+  --color-brand: var(--tic-dynamic-skin) !important;
+  --color-brand-accent: var(--tic-dynamic-skin) !important;
+  --tic-stats-accent: var(--tic-dynamic-skin) !important;
+  --tic-stats-accent-light: var(--tic-dynamic-skin-light) !important;
+  --color-background-live: var(--tic-dynamic-skin-light) !important;
+  --color-text-live: var(--tic-dynamic-skin-light) !important;
+  --color-fill-live: var(--tic-dynamic-skin-light) !important;
+  --color-border-live: var(--tic-dynamic-skin-light) !important;
+  --color-background-brand: var(--tic-dynamic-skin) !important;
+  --color-background-brand-hover: var(--tic-dynamic-skin) !important;
+  --color-background-brand-active: var(--tic-dynamic-skin) !important;
+  --color-background-button-brand: var(--tic-dynamic-skin) !important;
+  --color-background-button-brand-hover: var(--tic-dynamic-skin) !important;
+  --color-background-button-brand-active: var(--tic-dynamic-skin) !important;
+  --color-background-button-primary-default: var(--tic-dynamic-skin) !important;
+  --color-background-button-primary-hover: var(--tic-dynamic-skin) !important;
+  --color-background-button-primary-active: var(--tic-dynamic-skin) !important;
+  --color-border-button-hover: var(--tic-dynamic-skin) !important;
+  --color-border-button-active: var(--tic-dynamic-skin) !important;
+  --color-border-button-focus: var(--tic-dynamic-skin) !important;
+  --color-text-brand: var(--tic-dynamic-skin) !important;
+  --color-text-brand-hover: var(--tic-dynamic-skin-light) !important;
+  --color-text-brand-active: var(--tic-dynamic-skin) !important;
+  --color-text-button-brand: var(--tic-dynamic-skin) !important;
+  --color-text-link: var(--tic-dynamic-skin) !important;
+  --color-text-link-hover: var(--tic-dynamic-skin-light) !important;
+  --color-text-link-active: var(--tic-dynamic-skin) !important;
+  --color-text-link-focus: var(--tic-dynamic-skin) !important;
+  --color-text-link-visited: var(--tic-dynamic-skin) !important;
+  --color-text-interactable-selected: var(--tic-dynamic-skin) !important;
+  --color-text-interactable-hover: var(--tic-dynamic-skin-light) !important;
+  --color-text-interactable-active: var(--tic-dynamic-skin) !important;
+  --color-text-overlay-link: var(--tic-dynamic-skin) !important;
+  --color-text-overlay-link-hover: var(--tic-dynamic-skin-light) !important;
+  --color-text-overlay-link-active: var(--tic-dynamic-skin) !important;
+  --color-border-brand: var(--tic-dynamic-skin) !important;
+  --color-border-toggle-checked: var(--tic-dynamic-skin) !important;
+  --color-background-toggle-handle-checked: var(--tic-dynamic-skin) !important;
+  --color-background-pill-notification: var(--tic-dynamic-skin) !important;
+  --color-fill-current: var(--tic-dynamic-skin) !important;
+  --color-fill-brand: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-1: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-2: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-3: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-4: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-5: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-6: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-7: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-8: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-9: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-10: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-11: var(--tic-dynamic-skin) !important;
+  --color-twitch-purple-12: var(--tic-dynamic-skin) !important;
+}
+
+.tic-custom-skin-active [data-a-target="video-player"],
+.tic-custom-skin-active [data-test-selector="video-player"],
+.tic-custom-skin-active .video-player__container,
+.tic-custom-skin-active .video-player {
+  border: 2px solid var(--tic-dynamic-skin) !important;
+  box-shadow: 0 8px 36px var(--tic-dynamic-skin-a40) !important;
+}
+.tic-custom-skin-active .player-slider__track--fill,
+.tic-custom-skin-active [data-test-selector="seekbar-segment__fill"],
+.tic-custom-skin-active .tw-range__progress {
+  background: var(--tic-dynamic-skin) !important;
+  box-shadow: 0 0 10px var(--tic-dynamic-skin-a80) !important;
+}
+.tic-custom-skin-active ::-webkit-scrollbar-thumb {
+  background: var(--tic-dynamic-skin) !important;
+}
+.tic-custom-skin-active button[data-a-target="tw-core-button-primary"],
+.tic-custom-skin-active button[data-a-target="signup-button"],
+.tic-custom-skin-active .ScCoreButtonPrimary-sc-1qn4ixc-1,
+.tic-custom-skin-active button[class*="Primary"],
+.tic-custom-skin-active [data-a-target="tw-core-button-brand"] {
+  background-color: var(--tic-dynamic-skin) !important;
+  border-color: var(--tic-dynamic-skin) !important;
+}
+.tic-custom-skin-active [data-a-target="logged-out-bottom-bar"] {
+  background-color: var(--tic-dynamic-skin) !important;
+}
+.tic-custom-skin-active svg [fill="#9146FF"],
+.tic-custom-skin-active svg [fill="#a970ff"],
+.tic-custom-skin-active svg [fill="#772ce8"] {
+  fill: var(--tic-dynamic-skin) !important;
+}

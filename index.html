@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic for Twitch</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Local Extension Styles & Icons (CSP Compliant) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icon32.png" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/icons.css" />
+
+    <!-- Extension Popup Interaction Script -->
+    <script src="js/popup.js" defer></script>
+  </head>
+  <body class="premium-bg text-[#efeff1] font-sans m-0 p-0 w-[340px] select-none">
+    <!-- Snug, auto-sized dimensions matching Chrome Extension popup boundaries perfectly -->
+    <div
+      class="w-[340px] bg-transparent text-[#efeff1] flex flex-col font-sans border-0 shadow-2xl pb-3"
+    >
+      <!-- Header: Logo Left, Compact Support Us Right (No Divider) -->
+      <div
+        class="flex items-center justify-between py-2 px-3.5 z-10 bg-transparent gap-2"
+      >
+        <img src="logo.png" alt="Tic Logo" class="h-6 w-auto object-contain shrink-0" />
+
+        <!-- Compact Header Banner (Support) -->
+        <div
+          id="support-banner"
+          class="relative bg-twitch-purple rounded-full shadow-sm flex items-center py-1 px-2.5 text-white border border-[#a970ff]/40 transition-all group shrink-0"
+        >
+          <a
+            href="https://buymeacoffee.com/galore"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 cursor-pointer hover:opacity-90"
+          >
+            <i class="ph-fill ph-heart text-base text-white"></i>
+            <span class="font-bold text-[12px] tracking-wide leading-none">Support Us</span>
+          </a>
+          <button
+            id="dismiss-support-btn"
+            title="Dismiss for 1 week"
+            class="absolute -top-2.5 -right-2.5 w-5.5 h-5.5 rounded-full bg-[#ffffff] border border-black/10 text-[#090909] shadow-md opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all shrink-0 flex items-center justify-center cursor-pointer"
+          >
+            <i class="ph ph-x-bold text-base"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Middle Section: Compact, non-scrolling settings area with 10 options -->
+      <div
+        class="flex flex-col py-1 px-1.5"
+      >
+        <!-- Setting 1: Video Popout & PiP -->
+        <label
+          class="px-3 py-2 mx-1.5 rounded-md setting-row flex justify-between items-center group transition-colors cursor-pointer"
+        >
+          <div class="flex items-center gap-3 flex-1 min-w-0 pr-2">
+            <i class="ph-fill ph-arrows-out-simple text-[#d0c3f4] text-lg shrink-0"></i>
+            <div class="flex flex-col leading-tight flex-1 min-w-0">
+              <span class="font-bold text-[13px] truncate">Video Popout</span>
+              <span class="text-gray-400 text-[11px] truncate"
+                >Mini-Player & Picture-in-Picture</span
+              >
+            </div>
+          </div>
+          <div class="relative inline-block w-7 h-4 shrink-0">
+            <input
+              type="checkbox"
+              data-setting="videoPopout"
+              class="toggle-checkbox absolute block w-0 h-0 opacity-0"
+              checked
+            />
+            <div class="toggle-label block overflow-hidden"></div>
+          </div>
+        </label>
+
+        <!-- Setting 2: Bitrate Preview & Latency -->
+        <label
+          class="px-3 py-2 mx-1.5 rounded-md setting-row flex justify-between items-center group transition-colors cursor-pointer"
+        >
+          <div class="flex items-center gap-3 flex-1 min-w-0 pr-2">
+            <i class="ph-fill ph-activity text-[#d0c3f4] text-lg shrink-0"></i>
+            <div class="flex flex-col leading-tight flex-1 min-w-0">
+              <span class="font-bold text-[13px] truncate">Bitrate & Latency</span>
+              <span class="text-gray-400 text-[11px] truncate"
+                >Real-time stream health HUD</span
+              >
+            </div>
+          </div>
+          <div class="relative inline-block w-7 h-4 shrink-0">
+            <input
+              type="checkbox"
+              data-setting="bitratePreview"
+              class="toggle-checkbox absolute block w-0 h-0 opacity-0"
+            />
+            <div class="toggle-label block overflow-hidden"></div>
+          </div>
+        </label>
+
+        <!-- Setting 3: Turn Lights Off -->
+        <label
+          class="px-3 py-2 mx-1.5 rounded-md setting-row flex justify-between items-center group transition-colors cursor-pointer"
+        >
+          <div class="flex items-center gap-3 flex-1 min-w-0 pr-2">
+            <i class="ph-fill ph-lightbulb text-[#d0c3f4] text-lg shrink-0"></i>
+            <div class="flex flex-col leading-tight flex-1 min-w-0">
+              <span class="font-bold text-[13px] truncate">Turn Lights Off</span>
+              <span class="text-gray-400 text-[11px] truncate"
+                >Dim surrounding page elements</span
+              >
+            </div>
+          </div>
+          <div class="relative inline-block w-7 h-4 shrink-0">
+            <input
+              type="checkbox"
+              data-setting="turnLightsOff"
+              class="toggle-checkbox absolute block w-0 h-0 opacity-0"
+              checked
+            />
+            <div class="toggle-label block overflow-hidden"></div>
+          </div>
+        </label>
+
+        <!-- Setting 5: Custom Skin & Hex Color Swapper -->
+        <div class="px-3 py-1.5 mx-1.5 rounded-md setting-row flex flex-col group transition-colors">
+          <div class="flex justify-between items-center w-full py-0.5">
+            <label class="flex items-center gap-3 cursor-pointer flex-1 min-w-0 pr-2" for="setting-customSkin">
+              <i class="ph-fill ph-paint-brush-broad text-[#d0c3f4] text-lg shrink-0"></i>
+              <div class="flex flex-col leading-tight flex-1 min-w-0">
+                <span class="font-bold text-[13px] truncate">Custom Skin</span>
+                <span class="text-gray-400 text-[11px] truncate">Hex swapper (replaces all purple)</span>
+              </div>
+            </label>
+            <div class="flex items-center gap-2 shrink-0">
+              <input
+                type="color"
+                id="tic-skin-color-picker"
+                data-setting-color="customSkinHex"
+                value="#ff0055"
+                title="Click to choose Hex replacement color"
+                class="w-4 h-4 p-0 border-0 cursor-pointer bg-transparent shrink-0 shadow-sm"
+                style="border-radius: 50%; overflow: hidden;"
+              />
+              <style>
+                #tic-skin-color-picker::-webkit-color-swatch-wrapper { padding: 0; }
+                #tic-skin-color-picker::-webkit-color-swatch { border: none; border-radius: 50%; }
+              </style>
+              <label class="relative inline-block w-7 h-4 shrink-0 cursor-pointer" for="setting-customSkin">
+                <input
+                  type="checkbox"
+                  id="setting-customSkin"
+                  data-setting="customSkin"
+                  class="toggle-checkbox absolute block w-0 h-0 opacity-0"
+                />
+                <div class="toggle-label block overflow-hidden"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Setting 6: Auto Claim Drops (TCPAC) -->
+        <label
+          class="px-3 py-2 mx-1.5 rounded-md setting-row flex justify-between items-center group transition-colors cursor-pointer"
+        >
+          <div class="flex items-center gap-3 flex-1 min-w-0 pr-2">
+            <i class="ph-fill ph-coins text-[#d0c3f4] text-lg shrink-0"></i>
+            <div class="flex flex-col leading-tight flex-1 min-w-0">
+              <span class="font-bold text-[13px] truncate">Auto Claim Drops</span>
+              <span class="text-gray-400 text-[11px] truncate"
+                >Collect bonus chests automatically</span
+              >
+            </div>
+          </div>
+          <div class="relative inline-block w-7 h-4 shrink-0">
+            <input
+              type="checkbox"
+              data-setting="autoClaimDrops"
+              class="toggle-checkbox absolute block w-0 h-0 opacity-0"
+              checked
+            />
+            <div class="toggle-label block overflow-hidden"></div>
+          </div>
+        </label>
+
+        <!-- Setting 7: Hide Video Extensions -->
+        <label
+          class="px-3 py-2 mx-1.5 rounded-md setting-row flex justify-between items-center group transition-colors cursor-pointer"
+        >
+          <div class="flex items-center gap-3 flex-1 min-w-0 pr-2">
+            <i class="ph-fill ph-eye-slash text-[#d0c3f4] text-lg shrink-0"></i>
+            <div class="flex flex-col leading-tight flex-1 min-w-0">
+              <span class="font-bold text-[13px] truncate">Hide Extensions</span>
+              <span class="text-gray-400 text-[11px] truncate"
+                >Remove stream overlays & games</span
+              >
+            </div>
+          </div>
+          <div class="relative inline-block w-7 h-4 shrink-0">
+            <input
+              type="checkbox"
+              data-setting="hideExtensions"
+              class="toggle-checkbox absolute block w-0 h-0 opacity-0"
+              checked
+            />
+            <div class="toggle-label block overflow-hidden"></div>
+          </div>
+        </label>
+
+        <!-- Setting 9: Compact Chat -->
+        <label
+          class="px-3 py-2 mx-1.5 rounded-md setting-row flex justify-between items-center group transition-colors cursor-pointer"
+        >
+          <div class="flex items-center gap-3 flex-1 min-w-0 pr-2">
+            <i class="ph-fill ph-chat-teardrop-text text-[#d0c3f4] text-lg shrink-0"></i>
+            <div class="flex flex-col leading-tight flex-1 min-w-0">
+              <span class="font-bold text-[13px] truncate">Compact Chat</span>
+              <span class="text-gray-400 text-[11px] truncate"
+                >Reduce spacing & hide event clutter</span
+              >
+            </div>
+          </div>
+          <div class="relative inline-block w-7 h-4 shrink-0">
+            <input
+              type="checkbox"
+              data-setting="compactChat"
+              class="toggle-checkbox absolute block w-0 h-0 opacity-0"
+            />
+            <div class="toggle-label block overflow-hidden"></div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </body>
+</html>
