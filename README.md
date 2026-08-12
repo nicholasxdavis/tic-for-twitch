@@ -22,6 +22,7 @@ Quality-of-life tools for Twitch.
 - Hide extensions
 - Compact chat
 - Minor UI overhaul and clean-up
+- Streamer Stats
 - Download Clips/Vods
 - More!
 
