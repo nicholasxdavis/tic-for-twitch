@@ -11,6 +11,7 @@ quality-of-life tools to Twitch.
 - Auto claim drops
 - Hide extensions
 - Compact chat
+- Minor UI overhaul and clean-up
 
 ## Usage
 
